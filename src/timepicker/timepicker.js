@@ -147,6 +147,7 @@ angular.module('ui.bootstrap.timepicker', [])
       if ( !$scope.invalidHours && $scope.hours < 10) {
         $scope.$apply( function() {
           $scope.hours = pad( $scope.hours );
+          $scope.onBlurHours();
         });
       }
     });
@@ -166,6 +167,7 @@ angular.module('ui.bootstrap.timepicker', [])
       if ( !$scope.invalidMinutes && $scope.minutes < 10 ) {
         $scope.$apply( function() {
           $scope.minutes = pad( $scope.minutes );
+          $scope.onBlurMinutes();
         });
       }
     });
@@ -241,7 +243,12 @@ angular.module('ui.bootstrap.timepicker', [])
     require: ['timepicker', '?^ngModel'],
     controller:'TimepickerController',
     replace: true,
-    scope: {},
+    scope: {
+      onFocusHours: '&',
+      onBlurHours: '&',
+      onFocusMinutes: '&',
+      onBlurMinutes: '&'
+    },
     templateUrl: 'template/timepicker/timepicker.html',
     link: function(scope, element, attrs, ctrls) {
       var timepickerCtrl = ctrls[0], ngModelCtrl = ctrls[1];
